@@ -12,11 +12,10 @@ export default class GArrow {
   returnA() { this.id(); }
   seq(a, b) { return this.compose(b, a); }
 
-  arr(f) { throw new NoImpl("id"); }
+  arr(f) { throw new NoImpl("arr"); }
   first(a) { throw new NoImpl("first"); }
   second(a) {
-    const swap = ([x,y]) => [y,x];
-    return this.seq(this.swap, this.seq(this.first(a), this.swap));
+    return this.seq(this.swap(), this.seq(this.first(a), this.swap()));
   }
   split(a, a2) {
     return this.seq(this.first(a), this.second(a2));
