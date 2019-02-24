@@ -1,0 +1,3 @@
+proc x ->
+  returnA -< x;
+

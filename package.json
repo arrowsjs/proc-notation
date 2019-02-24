@@ -1,0 +1,16 @@
+{
+  "name": "proc-notation",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "node scripts/test-compile.js",
+    "test-parser": "node scripts/test-parser.js"
+  },
+  "author": "Yonglun Li",
+  "dependencies": {
+    "acorn": "^6.0.4",
+    "astravel": "^0.5.0",
+    "astring": "^1.3.1",
+    "colors": "^1.3.2"
+  }
+}
