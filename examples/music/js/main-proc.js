@@ -67,7 +67,7 @@ const showProgress = Arrow.fix(showProgress =>
   proc song -> do {
     update -< song
     wait(250) -<|
-    // (song => console.log(song)).lift() -< song;    
+    // (song => console.log(song)).lift() -< song;
     playing <- isPlaying -< song
     if (playing) showProgress -< song
     else returnA -<|
@@ -113,24 +113,24 @@ const mainloop = Arrow.fix(mainloop =>
           stopSong -< song;
           loadAndPlaySong -< nextSong
     };
-    else 
+    else
           returnA -<|;
     if(playnow) do {
-          song2 <- getSong -< nextSong;
-          playSong -< song2     
           showPause -<|
 
-          Arrow.any([
-             mainloop, 
-             proc id -> do {
+          Arrow.fix(loop =>
+            Arrow.any([
+               mainloop,
+               proc id -> do {
                  song <- getSong -< id
+                 playSong -< song
                  showProgress.noemit() -< song
-                 showPlay -<|
-                 mainloop -< id
-             }
-          ]) -< nextSong
+                 loop -< ((id + 1) % songNames.length)
+              }
+            ])
+          ) -< nextSong
     }
-    else 
+    else
           mainloop -< nextSong;
 
   }
